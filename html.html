@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Teste Hidro</title>
+    <link rel="shortcut icon" href="img/logo-pizzaria-scotini.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Teste Hidrostático</h1>
+    </header>
+    <main>
+        <p>
+            Preencha os dados abaixo com os valores das pressões (p1, p2 e p3) e tempo (T1):
+        </p>
+
+        <form>
+            <fieldset>
+
+                <label class="inline" for="p1">
+                    Valor de P1 (kgf/cm²):
+                    <input id="p1" type="number" name="pressao1" class="inline" />
+                </label>
+
+                <label class="inline" for="p2">
+                    Valor de P2 (kgf/cm²):
+                    <input id="p2" type="number" name="p2" class="inline" />
+                </label>
+
+                <label class="inline" for="p3">
+                    Valor de P3 (kgf/cm²):
+                    <input id="p3" type="number" name="p3" class="inline" />
+                </label>
+
+                <label class="inline" for="t1">
+                    Valor de T1 (minutos):
+                    <input id="t1" type="number" name="t1" class="inline" />
+                </label>
+            </fieldset>
+
+            <div>
+                <button class="botao" onclick="logican1n2()">
+                    Calcular N1 e N2
+                </button>
+            </div>
+        </form>
+
+        <div id="div1" class="hide">
+            <label class="inline" for="valores" onclick="show()">
+                Valores:
+                <textarea id="valores" rows="4" cols="30" name="valores" class="inline" readonly></textarea>
+            </label>
+        </div>
+    </main>
+    <footer>
+        <p>Site criado por <a href="https://github.com/jalotodelima/" target="_blank">Jaloto</a></p>
+    </footer>
+</body>
+
+<script>
+    let p1
+    let p2
+    let p3
+    let t1
+    let t2
+    let t3
+    let n1
+    let n2
+    let pgmt
+
+    var button = document.querySelector("button");
+
+    function show() {
+        document.getElementById('div1').style.display = 'block';
+    }
+
+    button.onclick = function () {
+        p1 = document.querySelector("#p1").value;
+        p2 = document.querySelector("#p2").value;
+        p3 = document.querySelector("#p3").value;
+        t1 = document.querySelector("#t1").value;
+
+        t2 = 5 * t1;
+        t3 = 15 * t1;
+
+        n1 = (Math.log(p1) - Math.log(p2)) / (Math.log(t2) - Math.log(t1))
+
+        n2 = (Math.log(p2) - Math.log(p3)) / (Math.log(t3) - Math.log(t2))
+
+        console.log("n1 é: " + n1 + " kgf/cm²")
+        console.log("n2 é: " + n2 + " kgf/cm²")
+
+        logican1n2();
+        areatexto();
+    };
+
+    function logican1n2() {
+
+        if (n1 < 0.04) {
+            // alert("Provavelmente há muito ar na linha e o teste deve ser refeito.\n")
+        } else if (n1 > 0.25) {
+            // alert("Linha reprovada.\n")
+        } else {
+            // alert("N1 está entre 0,04 e 0,25. O teste pode prosseguir.\n")
+            // alert("n1/n2 é: " + n1 / n2)
+            if (n2 > 0.25) {
+                // alert("Linha reprovada, pois N2 é maior do que 0,25.\n")
+            } else if (n1 / n2 < 0.75) {
+                // alert("Linha reprovada, pois N1/N2 é menor do que 0,75. Corrigir vazamentos.\n")
+            } else if (n1 / n2 >= 0.75) {
+                // alert("Linha aprovada.\n")
+            }
+        };
+
+        // texto = window.encodeURIComponent(texto);
+        // console.log(texto)
+
+        // window.open("https://wa.me/+5524998386746?text=" + texto);
+    }
+
+    function areatexto() {
+        document.getElementById("valores").value = n1
+    };
+</script>
+
+</html>
