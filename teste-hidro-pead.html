@@ -24,28 +24,28 @@
 
                 <label class="inline" for="p1">
                     Valor de P1 (kgf/cm²):
-                    <input id="p1" type="number" name="pressao1" class="inline" />
+                    <input id="p1" type="number" name="pressao1" max="12" class="inline" />
                 </label>
 
                 <label class="inline" for="p2">
                     Valor de P2 (kgf/cm²):
-                    <input id="p2" type="number" name="p2" class="inline" />
+                    <input id="p2" type="number" step="any" name="p2" max="12" class="inline" />
                 </label>
 
                 <label class="inline" for="p3">
                     Valor de P3 (kgf/cm²):
-                    <input id="p3" type="number" name="p3" class="inline" />
+                    <input id="p3" type="number" step="any" name="p3" max="12" class="inline" />
                 </label>
 
                 <label class="inline" for="t1">
                     Valor de T1 (minutos):
-                    <input id="t1" type="number" name="t1" class="inline" />
+                    <input id="t1" type="number" step="any" name="t1" min="10" class="inline" />
                 </label>
             </fieldset>
 
             <div>
                 <button class="botao" onclick="logican1n2()">
-                    Verificar Teste da Linha
+                    Verificar Linha
                 </button>
             </div>
         </form>
@@ -97,7 +97,7 @@
 
         jan.document.write('<html><head><title>Resultados - Teste Hidrostático PEAD</title><link rel="stylesheet" href="style.css"></head><body>');
 
-        jan.document.write('<header><h1> Resultados - Teste Hidrostático - PEAD');
+        jan.document.write('<header><h1> Resultados - Teste Hidrostático PEAD');
         jan.document.write('</h1></header>');
 
         jan.document.write('<main>');
@@ -115,21 +115,21 @@
 
         if (n1 < 0.04) {
 
-            jan.document.write("Provavelmente há muito ar na linha e o teste deve ser refeito.\n")
+            jan.document.write("Provavelmente há muito ar na linha. O teste deve ser refeito.\n")
 
         } else if (n1 > 0.25) {
 
-            jan.document.write("linha reprovada.")
+            jan.document.write("Linha reprovada.")
 
         } else {
-            jan.document.write("N1 está entre 0,04 e 0,25. O teste pode prosseguir.<br><br>")
+            jan.document.write("N1 está entre 0,04 e 0,25. Prosseguindo para o cálculo de N2...<br><br>")
             if (n2 > 0.25) {
 
                 jan.document.write("Linha reprovada, pois N2 é maior do que 0,25.<br>")
                 return
             } else if (n1 / n2 < 0.75) {
 
-                jan.document.write("Linha reprovada, pois N1/N2 é menor do que 0,75. Corrigir vazamentos.<br>")
+                jan.document.write("Linha reprovada, pois N1/N2 é menor do que 0,75. Favor corrigir possíveis vazamentos.<br>")
                 return
             } else if (n1 / n2 >= 0.75) {
                 jan.document.write("Linha aprovada.<br>")
