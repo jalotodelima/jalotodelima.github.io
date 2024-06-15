@@ -12,7 +12,7 @@
 
 <body>
     <header>
-        <h1>Teste Hidrostático</h1>
+        <h1>Teste Hidrostático - PEAD</h1>
     </header>
     <main>
         <p>
@@ -45,17 +45,10 @@
 
             <div>
                 <button class="botao" onclick="logican1n2()">
-                    Calcular N1 e N2
+                    Verificar Teste da Linha
                 </button>
             </div>
         </form>
-
-        <div id="div1" class="hide">
-            <label class="inline" for="valores" onclick="show()">
-                Valores:
-                <textarea id="valores" rows="4" cols="30" name="valores" class="inline" readonly></textarea>
-            </label>
-        </div>
     </main>
     <footer>
         <p>Site criado por <a href="https://github.com/jalotodelima/" target="_blank">Jaloto</a></p>
@@ -71,7 +64,6 @@
     let t3
     let n1
     let n2
-    let pgmt
 
     var button = document.querySelector("button");
 
@@ -92,40 +84,63 @@
 
         n2 = (Math.log(p2) - Math.log(p3)) / (Math.log(t3) - Math.log(t2))
 
-        console.log("n1 é: " + n1 + " kgf/cm²")
-        console.log("n2 é: " + n2 + " kgf/cm²")
-
         logican1n2();
-        areatexto();
     };
 
     function logican1n2() {
 
+
+        // Var jan = janela que abrirá com os resultados
+        var jan = window.open("", "", "toolbar=no,location=no,directories=no,status=no, menubar=no,scrollbars=no,resizable=no,width=650, height=650");
+
+        jan.document.open()
+
+        jan.document.write('<html><head><title>Resultados - Teste Hidrostático PEAD</title><link rel="stylesheet" href="style.css"></head><body>');
+
+        jan.document.write('<header><h1> Resultados - Teste Hidrostático - PEAD');
+        jan.document.write('</h1></header>');
+
+        jan.document.write('<main>');
+        jan.document.write('<p>');
+
+        jan.document.write("P1 = " + p1 + " kgf/cm² <br>");
+        jan.document.write("P2 = " + p2 + " kgf/cm² <br>");
+        jan.document.write("P3 = " + p3 + " kgf/cm² <br><br>");
+        jan.document.write("t1 = " + t1 + " minutos <br>");
+        jan.document.write("t2 = " + t2 + " minutos <br>");
+        jan.document.write("t3 = " + t3 + " minutos <br><br><br>");
+        jan.document.write("N1 = " + n1 + " <br>");
+        jan.document.write("N2 = " + n2 + " <br>");
+        jan.document.write("N1/N2 = " + (n1 / n2) + " <br><br>");
+
         if (n1 < 0.04) {
-            // alert("Provavelmente há muito ar na linha e o teste deve ser refeito.\n")
+
+            jan.document.write("Provavelmente há muito ar na linha e o teste deve ser refeito.\n")
+
         } else if (n1 > 0.25) {
-            // alert("Linha reprovada.\n")
+
+            jan.document.write("linha reprovada.")
+
         } else {
-            // alert("N1 está entre 0,04 e 0,25. O teste pode prosseguir.\n")
-            // alert("n1/n2 é: " + n1 / n2)
+            jan.document.write("N1 está entre 0,04 e 0,25. O teste pode prosseguir.<br><br>")
             if (n2 > 0.25) {
-                // alert("Linha reprovada, pois N2 é maior do que 0,25.\n")
+
+                jan.document.write("Linha reprovada, pois N2 é maior do que 0,25.<br>")
+                return
             } else if (n1 / n2 < 0.75) {
-                // alert("Linha reprovada, pois N1/N2 é menor do que 0,75. Corrigir vazamentos.\n")
+
+                jan.document.write("Linha reprovada, pois N1/N2 é menor do que 0,75. Corrigir vazamentos.<br>")
+                return
             } else if (n1 / n2 >= 0.75) {
-                // alert("Linha aprovada.\n")
+                jan.document.write("Linha aprovada.<br>")
+                return
             }
         };
 
-        // texto = window.encodeURIComponent(texto);
-        // console.log(texto)
+        jan.document.write('</p>');
+        jan.document.write('</main>');
 
-        // window.open("https://wa.me/+5524998386746?text=" + texto);
     }
-
-    function areatexto() {
-        document.getElementById("valores").value = n1
-    };
 </script>
 
 </html>
