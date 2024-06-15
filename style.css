@@ -12,6 +12,7 @@
 * {
     /* Configurações globais das CSS */
     box-sizing: border-box;
+    width: auto;
 }
 
 header {
@@ -152,6 +153,12 @@ div>.inline {
     min-width: 180px;
     display: block;
     margin: auto;
+    text-align: center;
+}
+
+.botao2 {
+    padding-top: 40px;
+    padding-right: 20px;
 }
 
 .botao:hover {
@@ -197,12 +204,16 @@ input[type="file"] {
     }
 }
 
+footer {
+    background-image: linear-gradient(to top, var(--cor3), var(--cor1), var(--cor4));
+    /* height: 210px; */
+}
+
 footer>p {
     text-align: center;
     background-image: linear-gradient(to bottom, var(--cor3), var(--cor1));
     margin: auto;
-    padding: 45px;
-
+    padding-top: 100px;
 }
 
 footer>p>a {
